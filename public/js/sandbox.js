@@ -15,8 +15,9 @@ square.translate(squareSize / 2, squareSize / 2);
 square.strokeColor = '#ccc';
 square.fillColor = '#fff';
 
-var liveLayer = new Layer();
-var staticLayer = new Layer();
+var gridLayer = new Layer();
+var unitLayer = new Layer();
+var levelLayer = new Layer();
 var toolbarLayer = new Layer();
 
 var selectedItem = null;
@@ -29,7 +30,7 @@ for (var i = 1; i <= gridWidth; i++) {
         if (j == 1 || j == gridHeight || i == 1 || i == gridWidth) {
             newSquare.strokeColor = '#333';
             newSquare.fillColor = '#eee';
-            staticLayer.addChild(newSquare);
+            levelLayer.addChild(newSquare);
             if (i == 1 && j == Math.ceil(gridHeight / 2)) {
                 newSquare.strokeColor = '#088A08';
                 newSquare.fillColor = '#64FE2E';
@@ -38,7 +39,7 @@ for (var i = 1; i <= gridWidth; i++) {
                 newSquare.fillColor = '#F78181';
             }
         } else {
-            liveLayer.addChild(newSquare);
+            gridLayer.addChild(newSquare);
         }
     }
 }
@@ -54,8 +55,8 @@ for (var i = 1; i <= gridWidth; i++) {
 }
 
 square.remove();
-liveLayer.translate(170,0);
-staticLayer.translate(170,0);
+gridLayer.translate(170,0);
+levelLayer.translate(170,0);
 toolbarLayer.translate(170,0);
 
 function onMouseMove(event) {
@@ -63,9 +64,9 @@ function onMouseMove(event) {
     //     dragItem.position = event.point;
     // }
     var hitResult = project.hitTest(event.point, hitOptions);
-    liveLayer.strokeColor = '#ccc';
-    liveLayer.fillColor = '#fff';
-    if (hitResult && hitResult.item.isDescendant(liveLayer)) {
+    gridLayer.strokeColor = '#ccc';
+    gridLayer.fillColor = '#fff';
+    if (hitResult && hitResult.item.isDescendant(gridLayer)) {
         hitResult.item.strokeColor = '#2E9AFE';
         hitResult.item.fillColor = '#CEE3F6';
     }
@@ -74,9 +75,10 @@ function onMouseMove(event) {
 function onMouseDown(event) {
     var hitResult = project.hitTest(event.point, hitOptions);
     
-    if (hitResult && hitResult.item.isDescendant(liveLayer)) {
+    if (hitResult && hitResult.item.isDescendant(gridLayer)) {
         selectedItem.scale(0.5);
         var newItem = selectedItem.clone();
+        unitLayer.addChild(newItem);
         newItem.position = hitResult.item.position;
         selectedItem.scale(2);
     }
