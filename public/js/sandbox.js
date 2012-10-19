@@ -48,7 +48,7 @@ for (var i = 1; i <= gridWidth; i++) {
     var newSquare = square.clone();
     newSquare.strokeColor = '#333';
     newSquare.fillColor = 'red';
-    newSquare.fillColor.hue = Math.random() * 360;
+    newSquare.fillColor.hue = 180/gridWidth*i;
     newSquare.position.x = i * squareSize + i * 5;
     newSquare.position.y = (squareSize + 5) * gridHeight + (squareSize * 2);
     toolbarLayer.addChild(newSquare);
