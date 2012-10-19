@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>{% block title %}codeitloadit{% endblock %}</title>
+
+        {% block css %}
+            <link rel="stylesheet" href="/css/style.css" />
+        {% endblock %}
+
+
+        {% block js %}
+            <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js"></script>
+        {% endblock %}
+
+    </head>
+
+    <body>
+        {% if user %}
+            <span id="header">Logged in as {{ user }} | <a href="/logout">Logout</a></span>
+        {% else %}
+            <span id="header"><a href="/">Home</a> | <a href="/login">Login</a></span>
+        {% endif %}
+
+        {% block content %}No content{% endblock %}
+    </body>
+</html>
